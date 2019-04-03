@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>My Courses</title>
+<meta http-equiv="Content-Type"content="text/html; charset=UTF-8"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div style="padding: 20px">
+		<h1>Courses</h1>
+		
+		<div class="row">
+			<div class="col-md-4">
+				<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+			</div>
+		<div class="col-md-4">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-danger"/>
+			</form>
+		</div>
+	</div>
+
+	<table class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Credits</th>
+			<th>Start date</th>
+			<th>End date</th>
+			<th>Grade</th>
+			<th sec:authorize="hasAuthority('ADMIN')"> </th>
+		</tr>
+		<tr th:each = "course : ${courses}">
+			<td th:text="${course.name}"></td>
+			<td th:text="${course.credit}"></td>
+			<td th:text="${course.startDate}"></td>
+			<td th:text="${course.endDate}"></td>
+			<td th:text="${course.grade.grade}"></td>
+			<td><a th:href="@{/edit/{id}(id=${course.id})}" class="btn btn-danger">Edit</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${course.id})}" class="btn btn-danger">Delete</a></td>	
+		</tr>
+	</table>
+	<a href="/addcourse" class="btn btn-success">Add new course</a>
+	</div>
+</body>
+</html>

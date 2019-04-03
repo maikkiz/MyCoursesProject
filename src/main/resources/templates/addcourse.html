@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add course</title>
+<meta http-equiv="Content-Type"content="text/html; charset=UTF-8"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+
+<div style="padding: 20px">
+	<h1>Add course</h1>
+
+	<form th:object="${course}" th:action="@{save}" action="#" method="post">
+		<label for="name">Name</label>
+		<input type="text" th:field="*{name}" />
+		<br><br>
+		<label for="credit">Credit</label>
+		<input type="text" th:field="*{credit}" />
+		<br><br>
+		<label for="startDate">Start date</label>
+		<input type="text" th:field="*{startDate}" />
+		<br><br>
+		<label for="endDate">End date</label>
+		<input type="text" th:field="*{endDate}" />
+		<br><br>
+		<label for="gradelist">Grade</label>
+		<select id="gradelist" th:field="*{grade}" class="form-control">
+			<option th:each="grade: ${grades}" th:value="${grade.gradeid}" th:text="${grade.grade}"></option>
+		</select>
+		<br><br>
+		<input type="submit" class="btn btn-success" value="Add"></input>
+	</form>
+</div>
+
+</body>
+</html>
