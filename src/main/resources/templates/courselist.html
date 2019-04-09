@@ -1,45 +1,73 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>My Courses</title>
-<meta http-equiv="Content-Type"content="text/html; charset=UTF-8"/>
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<title>Kurssit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
-	<div style="padding: 20px">
-		<h1>Courses</h1>
-		
-		<div class="row">
-			<div class="col-md-4">
-				<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-			</div>
-		<div class="col-md-4">
-			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" class="btn btn-danger"/>
-			</form>
-		</div>
-	</div>
+	<div style="padding: 30px">
+		<h1>Minun kurssini</h1>
 
-	<table class="table table-striped">
-		<tr>
-			<th>Name</th>
-			<th>Credits</th>
-			<th>Start date</th>
-			<th>End date</th>
-			<th>Grade</th>
-			<th sec:authorize="hasAuthority('ADMIN')"> </th>
-		</tr>
-		<tr th:each = "course : ${courses}">
-			<td th:text="${course.name}"></td>
-			<td th:text="${course.credit}"></td>
-			<td th:text="${course.startDate}"></td>
-			<td th:text="${course.endDate}"></td>
-			<td th:text="${course.grade.grade}"></td>
-			<td><a th:href="@{/edit/{id}(id=${course.id})}" class="btn btn-danger">Edit</a></td>
-			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${course.id})}" class="btn btn-danger">Delete</a></td>	
-		</tr>
-	</table>
-	<a href="/addcourse" class="btn btn-success">Add new course</a>
+		<div class="row justify-content-between">
+			<div class="col-4">
+				<h3 class="text-muted" th:inline="text">Tervetuloa
+					[[${#httpServletRequest.remoteUser}]]</h3>
+			</div>
+			<div class="col-4">
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="Kirjaudu ulos"
+						class="btn btn-outline-danger" />
+				</form>
+			</div>
+		</div>
+		<div class="w-75 p-3">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>Kurssi</th>
+						<th>Opintopisteet</th>
+						<th>Aloitus pvm</th>
+						<th>Lopetus pvm</th>
+						<th>Arvosana</th>
+						<th sec:authorize="hasAuthority('ADMIN')"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="course : ${courses}">
+						<td th:text="${course.name}"></td>
+						<td th:text="${course.credit}"></td>
+						<td th:text="${course.startDate}"></td>
+						<td th:text="${course.endDate}"></td>
+						<td th:text="${course.grade.grade}"></td>
+						<td><a th:href="@{/edit/{id}(id=${course.id})}"
+							class="btn btn-outline-secondary">Muokkaa</a></td>
+						<td sec:authorize="hasAuthority('ADMIN')"><a
+							th:href="@{/delete/{id}(id=${course.id})}"
+							class="btn btn-outline-danger">Poista</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div style="padding-bottom: 30px; padding-left: 30px;">
+			<a href="/addcourse" class="btn btn-outline-success">Lisää uusi kurssi</a>
+		</div>
+		<div class="row justify-content-center">
+		<div class="col-4">
+		<div class="alert alert-success" role="alert" style="width: 50%">
+			<h6>Opintopisteet yhteensä</h6>
+			<p th:text="${totalcredit}"></p>
+		</div>
+		</div>
+		<div class="col-4">
+		<div class="alert alert-success" role="alert" style="width: 40%">
+			<h6>Keskiarvo</h6>
+			<p th:text="${avggrade}"></p>
+		</div>
+		</div>
+		</div>
 	</div>
 </body>
 </html>

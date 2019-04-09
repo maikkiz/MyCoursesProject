@@ -11,21 +11,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Course {
+	// creating automated id
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long id;
 	private String name;
 	private int credit;
 	private String startDate;
 	private String endDate;
-	
+
+	// creating many to one relationship to grade class
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "gradeid")
 	private Grade grade;
-	
-	public Course() {}
-	
+
+	public Course() {
+	}
+
 	public Course(String name, int credit, String startDate, String endDate, Grade grade) {
 		super();
 		this.name = name;
@@ -85,13 +88,12 @@ public class Course {
 
 	@Override
 	public String toString() {
-		if(this.grade != null)
-		return "Course [id=" + id + ", name=" + name + ", credit=" + credit + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", grade=" + this.getGrade() + "]";
+		if (this.grade != null)
+			return "Course [id=" + id + ", name=" + name + ", credit=" + credit + ", startDate=" + startDate
+					+ ", endDate=" + endDate + ", grade=" + this.getGrade() + "]";
 		else
-			return "Course [id=" + id + ", name=" + name + ", credit=" + credit + ", startDate=" + startDate + ", endDate="
-			+ endDate + "]";
+			return "Course [id=" + id + ", name=" + name + ", credit=" + credit + ", startDate=" + startDate
+					+ ", endDate=" + endDate + "]";
 	}
 
 }
-

@@ -12,14 +12,16 @@ import javax.persistence.OneToMany;
 @Entity
 public class Grade {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long gradeid;
 	private int grade;
-	
+
+	// adding one to many relationship to course class
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "grade")
 	private List<Course> courses;
-	
-	public Grade() {}
+
+	public Grade() {
+	}
 
 	public Grade(int grade) {
 		super();

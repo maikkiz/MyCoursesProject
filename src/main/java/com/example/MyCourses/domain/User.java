@@ -8,29 +8,33 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	//id is generated automatically and can't be changed
+
+	// id is generated automatically and can't be changed
 	@Column(name = "id", nullable = false, updatable = false)
 	private long id;
-	
-	//username is unique
+
+	// username is unique
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
-	
+
+	// password can't be null
 	@Column(name = "password", nullable = false)
 	private String passwordHash;
-	
+
+	// email can't be null
 	@Column(name = "email", nullable = false)
 	private String email;
-	
+
+	// role can't be null
 	@Column(name = "role", nullable = false)
 	private String role;
-	
-	public User() {}
-	
+
+	public User() {
+	}
+
 	public User(String username, String passwordHash, String email, String role) {
 		super();
 		this.username = username;

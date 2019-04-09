@@ -17,66 +17,68 @@ import com.example.MyCourses.domain.GradeRepository;
 
 @Controller
 public class CourseController {
-	
+
 	@Autowired
 	private CourseRepository crepository;
-	
+
 	@Autowired
 	private GradeRepository grepository;
-	
-	// Shows all courses
-	@RequestMapping(value="/login")
-	public String login() {	
+
+	// Shows login page
+	@RequestMapping(value = "/login")
+	public String login() {
 		return "login";
 	}
-	
-	//shows all my courses
-	@RequestMapping(value="/courselist")
+
+	// shows all my courses
+	@RequestMapping(value = "/courselist")
 	public String courseList(Model model) {
 		model.addAttribute("courses", crepository.findAll());
+		model.addAttribute("avggrade", crepository.getAverageGrade());
+		model.addAttribute("totalcredit", crepository.getTotalCredit());
 		return "courselist";
 	}
-	
-	//adds new course to the course list
+
+	// adds new course to the course list
 	@RequestMapping(value = "/addcourse")
-	public String addCourse(Model model){
+	public String addCourse(Model model) {
 		model.addAttribute("course", new Course());
 		model.addAttribute("grades", grepository.findAll());
 		return "addcourse";
 	}
-	
-	//edits the chosen course
+
+	// edits the chosen course
 	@RequestMapping(value = "/edit/{id}")
-	public String editCourse(@PathVariable("id") Long courseId, Model model){
+	public String editCourse(@PathVariable("id") Long courseId, Model model) {
 		model.addAttribute("course", crepository.findById(courseId));
 		model.addAttribute("grades", grepository.findAll());
 		return "editcourse";
 	}
-	
-	//saves new and edited courses to the course list
+
+	// saves new and edited courses to the course list
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Course course){
+	public String save(Course course) {
 		crepository.save(course);
 		return "redirect:courselist";
 	}
-	
-	//deletes chosen course from the course list
+
+	// deletes chosen course from the course list
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
 		crepository.deleteById(courseId);
 		return "redirect:../courselist";
 	}
-	
+
 	// RESTful service that shows all courses
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public @ResponseBody List<Course> courseListRest() {
 		return (List<Course>) crepository.findAll();
 	}
-	
-	//RESTful service that shows course by id
-	 @RequestMapping(value="/course/{id}", method = RequestMethod.GET)
-	 public @ResponseBody Optional<Course> findCourseRest(@PathVariable("id") Long courseId) {	
-	    	return crepository.findById(courseId);
-	 }
-	 
+
+	// RESTful service that shows course by id
+	@RequestMapping(value = "/course/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Course> findCourseRest(@PathVariable("id") Long courseId) {
+		return crepository.findById(courseId);
+	}
+
 }
