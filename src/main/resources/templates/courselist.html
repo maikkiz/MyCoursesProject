@@ -6,9 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}" />
+	
+<style>
+.center {
+  margin: auto;
+  width: 75%;
+}
+</style>
 </head>
 <body>
-	<div style="padding: 30px">
+	<div class="center" style="padding: 30px">
 		<h1>Minun kurssini</h1>
 
 		<div class="row justify-content-between">
@@ -23,7 +30,7 @@
 				</form>
 			</div>
 		</div>
-		<div class="w-75 p-3">
+		<div >
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
@@ -56,15 +63,16 @@
 		</div>
 		<div class="row justify-content-center">
 		<div class="col-4">
-		<div class="alert alert-success" role="alert" style="width: 50%">
+		<div class="alert alert-success" role="alert" style="width: 220px; text-align: center">
 			<h6>Opintopisteet yhteensä</h6>
 			<p th:text="${totalcredit}"></p>
 		</div>
 		</div>
 		<div class="col-4">
-		<div class="alert alert-success" role="alert" style="width: 40%">
+		<div class="alert alert-success" role="alert" style="width: 220px; text-align: center">
 			<h6>Keskiarvo</h6>
-			<p th:text="${avggrade}"></p>
+			<p th:text="${#numbers.formatDecimal(avggrade, 1, 'DEFAULT', 1, 'DEFAULT')}"></p>
+			
 		</div>
 		</div>
 		</div>

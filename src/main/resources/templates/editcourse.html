@@ -21,14 +21,21 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
+
+<style>
+.center {
+	margin: auto;
+	width: 50%;
+}
+</style>
 </head>
 <body>
 
-	<div style="padding: 30px">
+	<div class="center" style="padding: 30px">
 		<h1>Muokkaa kurssia</h1>
 		<br>
 		<form th:object="${course}" th:action="@{../save}" action="#"
-			method="post" style="width: 50%">
+			method="post">
 			<input type="hidden" th:field="*{id}" class="form-control" />
 			<div class="form-group">
 				<label for="name">Kurssi</label> <input type="text"

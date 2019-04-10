@@ -5,15 +5,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}" />
+
+<style>
+.center {
+	margin: auto;
+	width: 50%;
+}
+</style>
 </head>
 <body>
 
-	<div style="padding: 30px">
+	<div class="center" style="padding: 30px">
 		<h1>Lisää uusi kurssi</h1>
 		<br>
 		<form th:object="${course}" th:action="@{save}" action="#"
-			method="post" style="width: 50%">
-			<div class="form-group" >
+			method="post">
+			<div class="form-group">
 
 				<label for="name">Kurssi</label> <input type="text"
 					class="form-control" th:field="*{name}" />
@@ -37,7 +44,8 @@
 						th:text="${grade.grade}"></option>
 				</select>
 			</div>
-			<input type="submit" class="btn btn-outline-success" value="Lisää kurssi"></input>
+			<input type="submit" class="btn btn-outline-success"
+				value="Lisää kurssi"></input>
 		</form>
 	</div>
 
